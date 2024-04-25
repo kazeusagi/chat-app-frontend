@@ -1,0 +1,6 @@
+{
+	"name": "Chat App Frontend",
+	"dockerComposeFile": "compose.yml",
+	"service": "app",
+	"workspaceFolder": "/home/user/app"
+}
