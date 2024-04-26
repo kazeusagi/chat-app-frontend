@@ -1,6 +1,16 @@
 {
-	"name": "Chat App Frontend",
-	"dockerComposeFile": "compose.yml",
-	"service": "app",
-	"workspaceFolder": "/home/user/app"
+  "name": "Chat App Frontend",
+  "dockerComposeFile": "compose.yml",
+  "service": "app",
+  "workspaceFolder": "/home/user/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "oderwat.indent-rainbow",
+        "formulahendry.auto-rename-tag"
+      ]
+    }
+  }
 }
