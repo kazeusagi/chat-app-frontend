@@ -9,7 +9,8 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "oderwat.indent-rainbow",
-        "formulahendry.auto-rename-tag"
+        "formulahendry.auto-rename-tag",
+        "ms-azuretools.vscode-docker"
       ]
     }
   }
