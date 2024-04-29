@@ -1,5 +1,6 @@
-import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+
+import type { Metadata } from 'next';
 import './globals.css';
 
 const dotFont = localFont({ src: '../../public/fonts/k8x12.ttf' });

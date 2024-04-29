@@ -1,5 +1,4 @@
 import { Chat } from '@/components/Chat';
-import { Table } from '@/components/PixelArt/Table';
 import { ChatHistorySideBar } from '@/components/SideBar';
 
 export default function Home() {

@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Message, MessageProps } from './MessageContainer/Message';
-import { MessageInput } from './MessageInput';
+
+import { ChatTitle } from './ChatTitle';
 import { MessageContainer } from './MessageContainer';
-import { ChatTitle } from './ChatTitle/ChatTitle';
+import { MessageProps } from './MessageContainer/Message';
+import { MessageInput } from './MessageInput';
 
 export function Chat() {
   const [messages, setMessages] = useState<MessageProps[]>([
@@ -14,9 +15,9 @@ export function Chat() {
   ]);
 
   return (
-    <div className='flex h-full w-full flex-col items-center'>
+    <div className='flex  size-full flex-col items-center'>
       <ChatTitle />
-      <MessageContainer messages={messages} />
+      <MessageContainer />
       <MessageInput />
     </div>
   );
