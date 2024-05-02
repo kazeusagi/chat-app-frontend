@@ -1,7 +1,7 @@
 {
   "name": "Chat App Frontend",
   "dockerComposeFile": "compose.yml",
-  "service": "app",
+  "service": "frontend-app",
   "workspaceFolder": "/home/user/app",
   "customizations": {
     "vscode": {
@@ -11,7 +11,8 @@
         "oderwat.indent-rainbow",
         "formulahendry.auto-rename-tag",
         "ms-azuretools.vscode-docker",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "humao.rest-client"
       ]
     }
   }

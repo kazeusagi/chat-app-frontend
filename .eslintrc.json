@@ -17,19 +17,7 @@
           "index"
         ],
         "newlines-between": "always", // グループ毎に改行を入れる
-        "pathGroupsExcludedImportTypes": ["builtin"],
-        "alphabetize": {
-          "order": "asc", // 昇順にソート
-          "caseInsensitive": true // 小文字大文字を区別する
-        }
-        // "pathGroups": [
-        //   // 指定した順番にソートされる
-        //   {
-        //     "pattern": "@/**",
-        //     "group": "internal",
-        //     "position": "before"
-        //   }
-        // ]
+        "pathGroupsExcludedImportTypes": [""]
       }
     ]
   }
