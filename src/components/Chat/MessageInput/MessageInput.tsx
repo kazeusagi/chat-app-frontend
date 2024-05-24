@@ -1,13 +1,19 @@
-import { useSetAtom } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
 
-import { messagesAtom } from '@/atom';
-// import { resolveHostname } from '@/util/dns';
+import { useAtom } from 'jotai';
+
+import { selectedChatAtom, selectedChatIdAtom } from '@/atom';
+import { RoleEnum } from '@/enum';
+import { Chat, Message } from '@/types';
+import { postAsk } from '@/util/api';
+import result from 'postcss/lib/result';
 
 export function MessageInput() {
-  const setMessages = useSetAtom(messagesAtom);
+  // const setMessages = useSetAtom(messagesAtom);
   const [value, setValue] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [selectedChatId, setSelectedChatId] = useAtom(selectedChatIdAtom);
+  const [selectedChat, setSelectedChat] = useAtom(selectedChatAtom);
 
   // textareaの高さを自動調整する副作用
   useEffect(() => {
@@ -43,14 +49,7 @@ export function MessageInput() {
 
   // 入力中の処理
   async function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    // GET http://backend-app:3003
-    // console.log(resolveHostname('backend-app'));
     setValue(event.target.value);
-    // const res = await fetch('http://localhost:3333', { method: 'GET' });
-    // console.log(res);
-
-    // const res2 = await fetch('http://localhost:3333/aa', { method: 'POST' });
-    // console.log(res2);
   }
 
   // Enter押下時の処理
@@ -63,22 +62,39 @@ export function MessageInput() {
         console.log('empty');
         return;
       }
-      setMessages((prev) => [...prev, { text: value, user: 'John' }]);
-      setValue('');
+
       send();
     }
   }
 
+  // 送信処理
   async function send() {
-    const response = await fetch('http://localhost:3333/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ message: value }),
+    if (selectedChat == undefined) return;
+
+    // 最初のメッセージの場合システムメッセージを追加
+    const systemMessage =
+      selectedChat.messages.length == 0
+        ? '王様のように威厳のある感じで話してください。'
+        : undefined;
+
+    // メッセージの追加
+    const newChatMessages: Message[] = selectedChat.messages;
+    if (systemMessage) {
+      newChatMessages.push({ id: 0, content: systemMessage, roleId: RoleEnum.System, chatId: 0 });
+    }
+    newChatMessages.push({ id: 0, content: value, roleId: RoleEnum.User, chatId: 0 });
+    setSelectedChat({ ...selectedChat, messages: newChatMessages });
+    setValue('');
+
+    const result: Message = await postAsk({
+      requestMessage: value,
+      systemMessage,
+      chatId: selectedChatId,
     });
+    if (result == undefined) return;
 
-    const json = await response.json();
-    const message: string = json.content;
-
-    setMessages((prev) => [...prev, { text: message, user: 'AI' }]);
+    newChatMessages.push(result);
+    setSelectedChat({ ...selectedChat, messages: newChatMessages });
+    setSelectedChatId(result.chatId);
   }
 }
